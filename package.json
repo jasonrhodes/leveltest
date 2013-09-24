@@ -14,5 +14,9 @@
     "leveldb"
   ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "levelup": "~0.16.0",
+    "leveldown": "~0.8.3"
+  }
 }
