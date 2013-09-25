@@ -1,11 +1,6 @@
 {
   "name": "leveltest",
   "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/johnshopkins/leveltest"
@@ -17,6 +12,10 @@
   "license": "MIT",
   "dependencies": {
     "levelup": "~0.16.0",
-    "leveldown": "~0.8.3"
+    "leveldown": "~0.8.3",
+    "async": "~0.2.9",
+    "request": "~2.27.0",
+    "lodash": "~2.1.0",
+    "optimist": "~0.6.0"
   }
 }
