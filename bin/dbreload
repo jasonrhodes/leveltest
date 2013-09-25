@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+
+var request = require('request');
+var levelup = require('levelup');
+var _ = require('lodash');
+var fs = require("fs");
+
+
+fs.readFile(__dirname + '/../.secrets', function (err, data) {
+    if (err) throw err;
+    var secrets = JSON.parse(data);
+
+    leveldown.destroy('./db', function () { 
+        var db = levelup('./db', { valueEncoding: 'json' });
+        console.log('Destroyed ./db');
+
+        // Add articles to leveldb
+        request({
+            uri: 'http://api.hub.jhu.edu/articles',
+            qs: {
+                v: 0,
+                key: 'billcosby',
+                per_page: 50
+            }
+        }, function (err, data) {
+            if (err) throw err;
+
+            var articles = JSON.parse(data.body)._embedded.articles;
+
+            _.each(articles, function (item) {
+                db.put("hub-" + item.id, item, function (err) {
+                    if (err) return console.log('Ooops!', err); // some kind of I/O error
+                });
+            });
+
+        });
+
+    });
+
+});
+
+
+
+
+
+

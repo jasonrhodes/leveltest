@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var levelup = require('levelup');
+var db = levelup('./db', {valueEncoding: 'json'});
+var argv = require('optimist').argv;
+
+
+db.createValueStream().on('data', function (data) {
+    var regex = new RegExp(argv._[0], 'i');
+    var found = false;
+
+    if (regex.test(data.headline)) found = true;
+    else if (regex.test(data.alt_headline)) found = true;
+    else if (regex.test(data.subheadline)) found = true;
+    else if (regex.test(data.body)) found = true;
+
+
+    if (found) {
+        console.log(data.headline);
+    }
+});
